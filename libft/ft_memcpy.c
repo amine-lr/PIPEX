@@ -1,23 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mlarioui <mlarioui@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/13 14:06:03 by mlarioui          #+#    #+#             */
+/*   Updated: 2024/09/30 15:19:53 by mlarioui         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-void    *ft_memcpy(void *dst, const void *src, size_t n)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-    size_t  i;
-    unsigned char   *dst_c;
-    unsigned const char *src_c;
+	char		*d;
+	char		*s;
 
-    dst_c = (unsigned char *)dst;
-    src_c = (unsigned const char *)src;
-    if (dst == NULL && src == NULL)
-        return (NULL);
-    i = 0;
-    while (i < n)
-    {
-        dst_c[i] = src_c [i];
-        i++;
-    }
-    return (dst_c);
+	d = (char *)dst;
+	s = (char *)src;
+	if (!dst && !src)
+		return (NULL);
+	while (n-- > 0)
+	{
+		*d++ = *s++;
+	}
+	return (dst);
 }
+
 /*int main()
 {
     char    *src = "sniper";

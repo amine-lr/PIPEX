@@ -14,11 +14,6 @@ all: $(NAME)
 $(NAME): $(OBJ) $(LIBFT) $(PRINTF)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(PRINTF)
 
-bonus: $(BONUS_NAME)
-
-$(BONUS_NAME): $(BONUS_OBJ) $(LIBFT) $(PRINTF)
-	$(CC) $(CFLAGS) -o $(BONUS_NAME) $(BONUS_OBJ) $(LIBFT) $(PRINTF)
-
 $(LIBFT):
 	make -C libft
 

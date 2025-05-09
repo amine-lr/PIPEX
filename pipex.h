@@ -19,6 +19,7 @@
 # include <sys/wait.h>
 # include "libft/libft.h"
 # include "printf/libftprintf.h"
+# include <errno.h>
 
 char	*get_command_path(char *cmd, char **envp);
 void	free_split(char **split);
@@ -26,8 +27,8 @@ void	execute_command(char *cmd, char **envp);
 void	handle_error(const char *msg);
 void	create_pipe(int pipefd[2]);
 void	create_process(int fd_in, int fd_out, char *cmd, char **envp);
-
-/* New helper functions */
+void	child1(int fd1, int *pipefd, char **argv, char **envp);
+void	child2(int fd1, int *pipefd, char **argv, char **envp);
 char	**get_paths(char **envp);
 char	*check_access(char *path, char *cmd);
 

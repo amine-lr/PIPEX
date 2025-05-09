@@ -12,7 +12,7 @@
 
 #include "pipex.h"
 
-static char	**get_paths(char **envp)
+char	**get_paths(char **envp)
 {
 	while (*envp && ft_strncmp("PATH=", *envp, 5) != 0)
 		envp++;
@@ -21,14 +21,16 @@ static char	**get_paths(char **envp)
 	return (ft_split(*envp + 5, ':'));
 }
 
-static char	*check_access(char *path, char *cmd)
+char	*check_access(char *path, char *cmd)
 {
 	char	*full_path;
+	char	*temp;
 
-	full_path = ft_strjoin(path, "/");
-	if (!full_path)
+	temp = ft_strjoin(path, "/");
+	if (!temp)
 		return (NULL);
-	full_path = ft_strjoin_free(full_path, cmd);
+	full_path = ft_strjoin(temp, cmd);
+	free(temp);
 	if (!full_path)
 		return (NULL);
 	if (access(full_path, X_OK) == 0)
@@ -37,18 +39,19 @@ static char	*check_access(char *path, char *cmd)
 	return (NULL);
 }
 
-char	*get_command_path(char *cmd, char **envp)
+static char	*get_command_path_loop(char **paths, char *cmd)
 {
-	char	**paths;
-	char	*result;
 	int		i;
+	char	*result;
 
-	paths = get_paths(envp);
-	if (!paths)
-		return (NULL);
 	i = 0;
 	while (paths[i])
 	{
+		if (paths[i][0] == '\0')
+		{
+			i++;
+			continue ;
+		}
 		result = check_access(paths[i], cmd);
 		if (result)
 		{
@@ -59,6 +62,18 @@ char	*get_command_path(char *cmd, char **envp)
 	}
 	free_split(paths);
 	return (NULL);
+}
+
+char	*get_command_path(char *cmd, char **envp)
+{
+	char	**paths;
+
+	if (!cmd || !*cmd)
+		return (NULL);
+	paths = get_paths(envp);
+	if (!paths)
+		return (NULL);
+	return (get_command_path_loop(paths, cmd));
 }
 
 void	free_split(char **split)

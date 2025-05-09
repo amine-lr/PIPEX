@@ -1,11 +1,8 @@
 NAME = pipex
-BONUS_NAME = pipex_bonus
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SRC = pipex.c helpers.c error.c
-BONUS_SRC = pipex_bonus.c helpers_bonus.c error_bonus.c list_bonus.c
+SRC = pipex.c helpers.c error.c child.c
 OBJ = $(SRC:.c=.o)
-BONUS_OBJ = $(BONUS_SRC:.c=.o)
 LIBFT = libft/libft.a
 PRINTF = printf/libftprintf.a
 
@@ -21,12 +18,12 @@ $(PRINTF):
 	make -C printf
 
 clean:
-	rm -f $(OBJ) $(BONUS_OBJ)
+	rm -f $(OBJ) 
 	make -C libft clean
 	make -C printf clean
 
 fclean: clean
-	rm -f $(NAME) $(BONUS_NAME)
+	rm -f $(NAME)
 	make -C libft fclean
 	make -C printf fclean
 
